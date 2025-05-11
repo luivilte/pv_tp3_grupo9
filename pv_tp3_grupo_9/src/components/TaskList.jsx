@@ -7,6 +7,7 @@ return (
         <ul>
         <TaskItem settar={settar} tareas={tareas}/>
         </ul>
+        
     </div>
   )
 }
