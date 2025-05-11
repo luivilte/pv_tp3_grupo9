@@ -1,39 +1,33 @@
+import React from "react";
 
-import React from 'react'
-
-
-const TaskItem = ({settar,tareas}) => {
+const TaskItem = ({ tareas, settar }) => {
+  if (!tareas || tareas.length === 0) return <p>No hay tareas disponibles.</p>;
 
   const cambiarEstado = (tar) => {
-    const nuevasTareas = tareas.map(t => {
-      if (t.id === tar.id) {
-        return { ...t, completado: !t.completado }
-      }
-      return t
-    })
-    settar(nuevasTareas)
-  }
-    
+    const nuevasTareas = tareas.map((t) =>
+      t.id === tar.id ? { ...t, completado: !t.completado } : t
+    );
+    settar(nuevasTareas);
+  };
 
-    const eliminarLista = (tar) => {
-      const nuevasTareas = tareas.filter(t => t.id !== tar.id)
-      settar(nuevasTareas)
-    }
-
+  const eliminarLista = (tar) => {
+    const nuevasTareas = tareas.filter((t) => t.id !== tar.id);
+    settar(nuevasTareas);
+  };
 
   return (
-    tareas.map((tar) => (
-    <li key={tar.id}>
-        <span style={{textDecoration: tar.completado ? 'line-through' : 'none'}}>
-          {tar.id} - {tar.nombre}
-          <button onClick={()=>cambiarEstado(tar)}>Completado</button>
-          <button onClick={()=>eliminarLista(tar)}>eliminar</button>
-        </span>
-      
-    </li>
-    ))
-  )
-}
+    <ul>
+      {tareas.map((tar) => (
+        <li key={tar.id}>
+          <span style={{ textDecoration: tar.completado ? "line-through" : "none" }}>
+            {tar.id} - {tar.nombre}
+          </span>
+          <button onClick={() => cambiarEstado(tar)}>Completado</button>
+          <button onClick={() => eliminarLista(tar)}>Eliminar</button>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-
-export default TaskItem
+export default TaskItem;
