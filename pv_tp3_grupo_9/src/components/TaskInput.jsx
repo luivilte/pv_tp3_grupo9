@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const TaskInput = ({settar,tareas}) => {
-    const [nuevaTarea, setnuevaTarea] = useState('')
+const TaskInput = ({ addTask }) => {
+  const [nuevaTarea, setNuevaTarea] = useState("");
 
-    const agregarTarea = (nuevaTarea,tareas) => {
-        if (nuevaTarea.trim() === '') return
-        
-        settar([...tareas,{id:tareas.length , nombre:nuevaTarea, completado:false}])
-        setnuevaTarea('')
-    }
+  const handleAddTask = () => {
+    if (nuevaTarea.trim() === "") return;
+    addTask(nuevaTarea);
+    setNuevaTarea("");
+  };
 
   return (
     <div>
-        <input type="text" value={nuevaTarea} placeholder="Ingrese una tarea" onChange={(e) => setnuevaTarea(e.target.va) } />
-    </div> )
-}
+      <input
+        type="text"
+        value={nuevaTarea}
+        placeholder="Ingrese una tarea"
+        onChange={(e) => setNuevaTarea(e.target.value)}
+      />
+      <button onClick={handleAddTask}>Agregar</button>
+    </div>
+  );
+};
+
+export default TaskInput;
