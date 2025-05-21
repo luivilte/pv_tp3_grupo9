@@ -1,17 +1,18 @@
+import TaskItem from "./TaskItem";
 
-import React from "react";
-import TaskItem from "./TaskItem"; 
-
-const TaskList = ({ tareas, settar }) => {
-  if (!tareas || tareas.length === 0) return <p>No hay tareas aún.</p>;
-
+function TaskList({ tasks, onToggle, onDelete }) {
   return (
-    <ul>
-      {tareas.map((tarea) => (
-        <TaskItem key={tarea.id} tar={tarea} tareas={tareas} settar={settar} />
+    <ul style={{ padding: 0 }}>
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
       ))}
     </ul>
   );
-};
+}
 
 export default TaskList;
