@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const TaskInput = ({ addTask }) => {
-  const [nuevaTarea, setNuevaTarea] = useState("");
+function TaskInput({ onAddTask }) {
+  const [text, setText] = useState("");
 
-  const handleAddTask = () => {
-    if (nuevaTarea.trim() === "") return;
-    addTask(nuevaTarea);
-    setNuevaTarea("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text.trim() !== "") {
+      onAddTask(text);
+      setText("");
+    }
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
       <input
         type="text"
-        value={nuevaTarea}
-        placeholder="Ingrese una tarea"
-        onChange={(e) => setNuevaTarea(e.target.value)}
+        placeholder="Nueva tarea"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ padding: "8px", fontSize: "14px", marginRight: "8px" }}
       />
-      <button onClick={handleAddTask}>Agregar</button>
-    </div>
+      <button type="submit" style={{ padding: "8px", fontSize: "14px" }}>
+        Agregar
+      </button>
+    </form>
   );
-};
+}
 
 export default TaskInput;
