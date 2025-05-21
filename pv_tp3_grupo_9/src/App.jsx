@@ -1,9 +1,8 @@
 
 import { useState } from 'react'
-import './App.css'
 import TaskList from './components/TaskList'
 import TaskInput from './components/TaskInput'
-
+import './App.css'
 
 function App() {
  
