@@ -1,83 +1,45 @@
+// Declaración del array de productos con al menos 5 objetos
+let productos = [
+  { descripcion: "Auriculares", precio: 49000 },
+  { descripcion: "Teclado", precio: 30000 },
+  { descripcion: "Mouse", precio: 15000 },
+  { descripcion: "Monitor", precio: 120000 },
+  { descripcion: "Webcam", precio: 22000 }
+];
 
-import { useState } from 'react';
+// 1 - Mostrar cada producto en consola con forEach
+console.log("1 - Lista de productos:");
+productos.forEach(producto => {
+  console.log(Producto: ${producto.descripcion} - Precio: $${producto.precio});
+});
 
-import '../CSS/estilos.css';
+// 2 - Crear un nuevo array con productos cuyo precio sea mayor a $20.000
+const productosMayoresA20k = productos.filter(producto => producto.precio > 20000);
+console.log("\n2 - Productos con precio mayor a $20.000:");
+console.log(productosMayoresA20k);
 
-const Productos = () => {
-    const [productos, setProductos] = useState([
-        { nombre: "Smartphone", precio: 55.000 },
-        { nombre: "Auriculares Inalámbricos", precio: 12.000 },
-        { nombre: "Smartwatch", precio: 35.000 },
-        { nombre: "Tablet", precio: 40 },
-        { nombre: "Disco rigido", precio: 80.000 },
-        { nombre: "Teclado", precio: 28.000 },
-        { nombre: "Mause", precio: 12.000 },
-        { nombre: "Camara", precio: 75.000 },
-        { nombre: "Parlante bluetooth", precio: 22.000 },
-        { nombre: "Impresora", precio: 38.000 }
-    ]);
+// 3 - Crear un array con productos con precio con IVA incluido (21%)
+const productosConIVA = productos.map(producto => ({
+  descripcion: producto.descripcion,
+  precio: (producto.precio * 1.21).toFixed(2) // Redondeado a 2 decimales
+}));
+console.log("\n3 - Productos con IVA incluido (21%):");
+console.log(productosConIVA);
 
-    const [productosConIVA, setProductosConIVA] = useState([]);
-    const [mostrarConIVA, setMostrarConIVA] = useState(false);
+// 4 - Ordenar el array original de productos por precio de menor a mayor
+productos.sort((a, b) => a.precio - b.precio);
+console.log("\n4 - Productos ordenados por precio (menor a mayor):");
+console.log(productos);
 
-    // 1. Mostramos los productos y sus precios usando forEach
-    const mostrarProductos = () => {
-        return productos.map(producto => (
-            <div key={producto.nombre}>
-                Producto: {producto.nombre} - Precio: ${producto.precio}
-            </div>
-        ));
-    };
+// 5 - Agregar un nuevo producto al final del array
+productos.push({ descripcion: "Parlante Bluetooth", precio: 59000.90 });
+console.log("\n5 - Producto agregado:");
+console.log(productos);
 
-    // 3. Creamos un array con productos con el IVA incluido en el precio
-    const calcularPrecioConIVA = () => {
-        const productosConIVAIncluidos = productos.map(producto => ({
-            ...producto,
-            precioConIVA: parseFloat((producto.precio * 1.21).toFixed(2))
-        }));
-        setProductosConIVA(productosConIVAIncluidos);
-        setMostrarConIVA(true);
-    };
-
-    // 4. Eliminar el producto de menor precio
-    const eliminarProductoMenorPrecio = () => {
-        const menorPrecio = Math.min(...productos.map(producto => producto.precio));
-        const productosActualizados = productos.filter(producto => producto.precio !== menorPrecio);
-        setProductos(productosActualizados);
-    };
-
-    // 5. Ordenar productos de menor a mayor precio
-    const ordenarProductosPorPrecio = () => {
-        const productosOrdenados = [...productos].sort((a, b) => a.precio - b.precio);
-        setProductos(productosOrdenados);
-    };
-
-    return (
-        <div>
-            <h2>Lista de Productos:</h2>
-            {mostrarProductos()}
-
-            <h2>Productos con IVA (21%) incluido:</h2>
-            <button onClick={calcularPrecioConIVA}>Mostrar productos con IVA</button>
-
-            {mostrarConIVA && productosConIVA.length > 0 && (
-                <div>
-                    <h3>Productos con IVA incluido</h3>
-                    {productosConIVA.map(producto => (
-                        <div key={producto.nombre}>
-                            Producto: {producto.nombre} - Precio con IVA: ${producto.precioConIVA}
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            <h2>Eliminar Producto de Menor Precio:</h2>
-            <button onClick={eliminarProductoMenorPrecio}>Eliminar producto más barato</button>
-
-            <h2>Ordenar Productos por Precio:</h2>
-            <button onClick={ordenarProductosPorPrecio}>Ordenar de menor a mayor precio</button>
-        </div>
-    );
-};
-
-export default Productos;
+// 6 - Eliminar el producto con el precio más bajo
+// Ya que el array está ordenado por precio, simplemente quitamos el primero
+const productoEliminado = productos.shift();
+console.log("\n6 - Producto con precio más bajo eliminado:");
+console.log(Eliminado: ${productoEliminado.descripcion} - $${productoEliminado.precio});
+console.log("Array final de productos:");
+console.log(productos);
